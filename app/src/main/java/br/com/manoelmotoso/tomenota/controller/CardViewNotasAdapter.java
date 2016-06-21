@@ -21,12 +21,9 @@ import static android.support.v7.widget.RecyclerView.*;
 public class CardViewNotasAdapter extends RecyclerView.Adapter<CardViewNotasAdapter.ViewHolder> {
     private List<Nota> notas;
 
-    // Provide a reference to the views for each data item
-    // Complex data items may need more than one view per item, and
-    // you provide access to all the views for a data item in a view holder
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        // each data item is just a string in this case
-        public CheckBox checkBoxTitulo;
+      
+		public CheckBox checkBoxTitulo;
 
         public ViewHolder(View v) {
             super(v);

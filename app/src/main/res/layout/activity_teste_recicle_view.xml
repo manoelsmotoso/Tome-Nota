@@ -4,24 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="br.com.manoelmotoso.tomenota.controller.NovaNota">
+    tools:context="br.com.manoelmotoso.tomenota.controller.NovaNota"
+	android:background="#FFFFCC">
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+		
         android:elevation="10dp"
         android:background="@drawable/ic_note_add_black_36dp"
         android:id="@+id/adicionaNota"
         android:layout_margin="10dp"/>
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:elevation="10dp"
-        android:id="@+id/botaoDeletar"
-        android:background="@drawable/ic_delete_black_36dp"
-        android:layout_alignParentEnd="true"
-        android:layout_margin="10dp"/>
-
+   
 <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_below="@+id/botaoDeletar"
     android:id="@+id/recycler_view"

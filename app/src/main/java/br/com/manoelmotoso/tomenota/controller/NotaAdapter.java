@@ -86,6 +86,7 @@ public class NotaAdapter extends BaseAdapter {
               Nota  nota = (Nota) getItem(position);
                 Intent intent = new Intent(activity,NovaNota.class);
                 intent.putExtra("nota", nota);
+				
                 activity.startActivity(intent);
             }
         });

@@ -1,22 +1,23 @@
 package br.com.manoelmotoso.tomenota.controller;
 
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.MotionEvent;
-import android.widget.Toast;
 
-import com.github.brnunes.swipeablerecyclerview.SwipeableRecyclerViewTouchListener;
-
-import java.util.List;
+import android.content.*;
+import android.os.*;
+import android.support.v7.app.*;
+import android.support.v7.widget.*;
+import android.view.*;
+import android.widget.*;
+import br.com.manoelmotoso.tomenota.*;
+import br.com.manoelmotoso.tomenota.dao.*;
+import br.com.manoelmotoso.tomenota.model.*;
+import com.github.brnunes.swipeablerecyclerview.*;
+import java.util.*;
 
 import br.com.manoelmotoso.tomenota.R;
-import br.com.manoelmotoso.tomenota.dao.NotaDAO;
-import br.com.manoelmotoso.tomenota.model.Nota;
 
 public class TesteRecicleView extends AppCompatActivity {
     private RecyclerView mRecyclerView;
+	private ImageButton imgBtnNovaNota;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private   List<Nota> notas;
@@ -24,18 +25,7 @@ public class TesteRecicleView extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teste_recicle_view);
-        NotaDAO dao = new NotaDAO(this);
-
-        notas = dao.getNotas();
-        dao.close();
-        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-
-        mLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-
-        mAdapter = new CardViewNotasAdapter(notas);
-        mRecyclerView.setAdapter(mAdapter);
-
+        carregarLista();
 
 
         SwipeableRecyclerViewTouchListener.SwipeListener swipeListener = new SwipeableRecyclerViewTouchListener.SwipeListener(){
@@ -47,7 +37,7 @@ public class TesteRecicleView extends AppCompatActivity {
 
             @Override
             public boolean canSwipeRight(int position) {
-                return false;
+                return true;
             }
 
             @Override
@@ -65,8 +55,14 @@ public class TesteRecicleView extends AppCompatActivity {
             @Override
             public void onDismissedBySwipeRight(RecyclerView recyclerView, int[] reverseSortedPositions) {
                 for (int position : reverseSortedPositions) {
-                    Toast.makeText(getApplicationContext(), notas.get(position).getTitulo() + "Swipe para a direita", Toast.LENGTH_SHORT).show();
-                    mAdapter.notifyItemRemoved(position);
+
+					Toast.makeText(getApplicationContext(), notas.get(position).getTitulo() + "Abrir anotacão", Toast.LENGTH_SHORT).show();
+                    Nota nota = notas.get(position);
+					notas.remove(position);
+					Intent intent = new Intent(getApplicationContext(), NovaNota.class);
+					intent.putExtra("nota", nota);
+					startActivity(intent);
+					mAdapter.notifyItemRemoved(position);
                 }
                 mAdapter.notifyDataSetChanged();
             }
@@ -76,8 +72,37 @@ public class TesteRecicleView extends AppCompatActivity {
         SwipeableRecyclerViewTouchListener swipeTouchListener = new SwipeableRecyclerViewTouchListener(mRecyclerView,swipeListener);
 
         mRecyclerView.addOnItemTouchListener(swipeTouchListener);
+
+		imgBtnNovaNota = (ImageButton) findViewById(R.id.adicionaNota);
+		imgBtnNovaNota.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					Intent intent = new Intent(getApplicationContext(), NovaNota.class);
+					startActivity(intent);
+
+				}
+			});
+
     }
 
 
-    }
+
+	public void carregarLista(){
+		NotaDAO dao = new NotaDAO(this);
+
+        notas = dao.getNotas();
+        dao.close();
+        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+
+        mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
+        mAdapter = new CardViewNotasAdapter(notas);
+        mRecyclerView.setAdapter(mAdapter);
+
+
+	}
+
+
+}
 
