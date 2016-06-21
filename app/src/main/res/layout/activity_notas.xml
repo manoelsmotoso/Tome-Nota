@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".controller.Notas"
+    android:background="#88aed4">
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="10dp"
+        android:background="@drawable/ic_note_add_black_36dp"
+        android:id="@+id/adicionaNota"
+        android:layout_margin="10dp"/>
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="10dp"
+        android:id="@+id/botaoDeletar"
+        android:background="@drawable/ic_delete_black_36dp"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="10dp"/>
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/listaDeNotas"
+        android:layout_below="@+id/botaoDeletar"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="5dp">
+    </ListView>
+<Button
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Recicle View"
+    android:layout_alignParentTop="true"
+    android:layout_centerHorizontal="true"
+    android:onClick="irParaRecicleView"
+    />
+
+
+</RelativeLayout>

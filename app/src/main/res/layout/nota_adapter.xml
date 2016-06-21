@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    card_view:contentPadding="4dp"
+    card_view:cardElevation="4dp"
+    card_view:cardCornerRadius="6dp"
+    card_view:cardBackgroundColor="#e6dede"
+    android:id="@+id/cardview"
+    android:layout_margin="10dp">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Compras "
+        android:fontFamily="cursive"
+        android:textColor="#2c3c9e"
+        android:id="@+id/tituloDaNota" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="16/06/2016  19:03"
+        android:fontFamily="cursive"
+        android:id="@+id/dataDaNota"/>
+
+</LinearLayout>
+
+</android.support.v7.widget.CardView>
