@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinatorLayout"
+	tools:context="br.com.manoelmotoso.tomenota.controller.NovaNota"
     android:layout_width="match_parent"
+    android:layout_height="match_parent">
+ 
+
+
+<RelativeLayout 
+	android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="br.com.manoelmotoso.tomenota.controller.NovaNota"
+   
 	android:background="#FFFFCC">
 
-    <android.support.design.widget.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:src="@android:drawable/ic_input_add"
-        android:id="@+id/adicionaNota"
-
-        android:layout_margin="16dp"/>
+    
 
    
 <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -27,3 +27,13 @@
     />
 
 </RelativeLayout>
+
+	<android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"   
+		android:src="@android:drawable/ic_input_add"
+        android:id="@+id/adicionaNota"
+        android:layout_margin="17dp"/>
+
+</android.support.design.widget.CoordinatorLayout>

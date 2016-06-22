@@ -2,9 +2,9 @@ package br.com.manoelmotoso.tomenota.controller;
 
 
 import android.content.*;
+import android.graphics.*;
 import android.os.*;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.design.widget.*;
 import android.support.v7.app.*;
 import android.support.v7.widget.*;
 import android.view.*;
@@ -51,7 +51,7 @@ public class TesteRecicleView extends AppCompatActivity {
                     notas.remove(position);
                     Snackbar snackbar = Snackbar
                             .make(recyclerView, "Anotação deletada", Snackbar.LENGTH_LONG)
-                            .setAction("DESFAZER", new View.OnClickListener() {
+						.setAction("DESFAZER", new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
                                     nota.set_id(0);
@@ -61,8 +61,10 @@ public class TesteRecicleView extends AppCompatActivity {
                                     snackbar1.show();
                                 }
                             });
-
+					// Changing message text color
+					snackbar.setActionTextColor(Color.GREEN);
                     snackbar.show();
+					
                     dao.close();
 
                     mAdapter.notifyItemRemoved(position);
