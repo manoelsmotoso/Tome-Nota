@@ -9,7 +9,7 @@ import android.support.v7.app.*;
 import android.support.v7.widget.*;
 import android.view.*;
 import android.widget.*;
-import br.com.manoelmotoso.tomenota.*;
+
 import br.com.manoelmotoso.tomenota.dao.*;
 import br.com.manoelmotoso.tomenota.model.*;
 import com.github.brnunes.swipeablerecyclerview.*;
@@ -17,16 +17,16 @@ import java.util.*;
 
 import br.com.manoelmotoso.tomenota.R;
 
-public class TesteRecicleView extends AppCompatActivity {
+public class RecicleViewActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
-	private FloatingActionButton fabNovaNota;
-    private RecyclerView.Adapter mAdapter;
+	private FloatingActionButton fabNovaNota,fabDeletaNota;
+    private CardViewAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private   List<Nota> notas;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_teste_recicle_view);
+        setContentView(R.layout.activity_recicle_view);
         carregarLista();
 
 
@@ -45,7 +45,7 @@ public class TesteRecicleView extends AppCompatActivity {
             @Override
             public void onDismissedBySwipeLeft(RecyclerView recyclerView, int[] reverseSortedPositions) {
                 for (final int position : reverseSortedPositions) {
-                    final NotaDAO dao = new NotaDAO(TesteRecicleView.this);
+                    final NotaDAO dao = new NotaDAO(RecicleViewActivity.this);
                     final Nota nota = notas.get(position);
                     dao.deletarNota(nota);
                     notas.remove(position);
@@ -102,6 +102,15 @@ public class TesteRecicleView extends AppCompatActivity {
 				}
 			});
 
+        fabDeletaNota = (FloatingActionButton) findViewById(R.id.deletaNota );
+        fabDeletaNota.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NotaDAO dao = new NotaDAO(getApplicationContext());
+                dao.deletarNotas(mAdapter.getIdsSelecionados());
+                carregarLista();
+            }
+        });
     }
 
 
@@ -116,7 +125,7 @@ public class TesteRecicleView extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        mAdapter = new CardViewNotasAdapter(notas);
+        mAdapter = new CardViewAdapter(notas,this);
         mRecyclerView.setAdapter(mAdapter);
 
 

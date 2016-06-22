@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.beardedhen.androidbootstrap.TypefaceProvider;
 
 import java.io.Serializable;
 
@@ -27,8 +26,6 @@ public class NovaNota extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        TypefaceProvider.registerDefaultIconSets();
-
 
         setContentView(R.layout.activity_nova_nota);
         edTitulo = (EditText) findViewById(R.id.titulo);
@@ -62,23 +59,22 @@ public class NovaNota extends AppCompatActivity {
                     boolean isGravada = dao.gravarNota(NovaNota.this.nota);
                     if (isGravada == true) {
                         //Redireciona para a tela que lista as anotações
-                        Intent intent = new Intent(NovaNota.this, Notas.class);
+                        Intent intent = new Intent(NovaNota.this, RecicleViewActivity.class);
                         startActivity(intent);
                     } else {
-                        Snackbar.make(v, "Houve um erro ao gravar", Snackbar.LENGTH_LONG).show();
+                        Snackbar.make(v, "Erro inesperado ao tentar gravar.", Snackbar.LENGTH_LONG).show();
                     }
                 }
             }
         });
 
         btnCancelar = (Button) findViewById(R.id.btnCancelar);
-        btnCancelar.setOnLongClickListener(new View.OnLongClickListener() {
+        btnCancelar.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onLongClick(View v) {
+            public void onClick(View v) {
                 //Redireciona para a tela que lista as anotações
-                Intent intent = new Intent(NovaNota.this, Notas.class);
+                Intent intent = new Intent(NovaNota.this, RecicleViewActivity.class);
                 startActivity(intent);
-                return false;
             }
         });
 

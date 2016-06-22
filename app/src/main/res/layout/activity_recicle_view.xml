@@ -6,24 +6,18 @@
 	tools:context="br.com.manoelmotoso.tomenota.controller.NovaNota"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
- 
-
 
 <RelativeLayout 
 	android:layout_width="match_parent"
     android:layout_height="match_parent"
-   
 	android:background="#FFFFCC">
 
-    
-
-   
 <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_below="@+id/botaoDeletar"
     android:id="@+id/recycler_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scrollbars="vertical"
+    android:layout_margin="8dp"
     />
 
 </RelativeLayout>
@@ -34,6 +28,14 @@
         android:layout_gravity="end|bottom"   
 		android:src="@android:drawable/ic_input_add"
         android:id="@+id/adicionaNota"
-        android:layout_margin="17dp"/>
+        android:layout_margin="16dp"/>
+	<android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|bottom"
+		android:src="@drawable/ic_delete_black_36dp"
+        android:id="@+id/deletaNota"
+        android:layout_margin="16dp"
+		android:visibility="gone"/>
 
 </android.support.design.widget.CoordinatorLayout>
