@@ -7,14 +7,16 @@
     tools:context="br.com.manoelmotoso.tomenota.controller.NovaNota"
 	android:background="#FFFFCC">
 
-    <ImageButton
+    <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-		
-        android:elevation="10dp"
-        android:background="@drawable/ic_note_add_black_36dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:src="@android:drawable/ic_input_add"
         android:id="@+id/adicionaNota"
-        android:layout_margin="10dp"/>
+
+        android:layout_margin="16dp"/>
+
    
 <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_below="@+id/botaoDeletar"

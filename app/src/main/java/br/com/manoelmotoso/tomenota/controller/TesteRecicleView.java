@@ -3,6 +3,8 @@ package br.com.manoelmotoso.tomenota.controller;
 
 import android.content.*;
 import android.os.*;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.*;
 import android.support.v7.widget.*;
 import android.view.*;
@@ -17,7 +19,7 @@ import br.com.manoelmotoso.tomenota.R;
 
 public class TesteRecicleView extends AppCompatActivity {
     private RecyclerView mRecyclerView;
-	private ImageButton imgBtnNovaNota;
+	private FloatingActionButton fabNovaNota;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private   List<Nota> notas;
@@ -42,10 +44,26 @@ public class TesteRecicleView extends AppCompatActivity {
 
             @Override
             public void onDismissedBySwipeLeft(RecyclerView recyclerView, int[] reverseSortedPositions) {
-                for (int position : reverseSortedPositions) {
-                    NotaDAO dao = new NotaDAO(TesteRecicleView.this);
-                    dao.deletarNota(notas.get(position));
+                for (final int position : reverseSortedPositions) {
+                    final NotaDAO dao = new NotaDAO(TesteRecicleView.this);
+                    final Nota nota = notas.get(position);
+                    dao.deletarNota(nota);
                     notas.remove(position);
+                    Snackbar snackbar = Snackbar
+                            .make(recyclerView, "Anotação deletada", Snackbar.LENGTH_LONG)
+                            .setAction("DESFAZER", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    nota.set_id(0);
+                                    dao.gravarNota(nota);
+                                    carregarLista();
+                                    Snackbar snackbar1 = Snackbar.make(view, "Anotação restaurada!", Snackbar.LENGTH_SHORT);
+                                    snackbar1.show();
+                                }
+                            });
+
+                    snackbar.show();
+                    dao.close();
 
                     mAdapter.notifyItemRemoved(position);
                 }
@@ -58,11 +76,10 @@ public class TesteRecicleView extends AppCompatActivity {
 
 					Toast.makeText(getApplicationContext(), notas.get(position).getTitulo() + "Abrir anotacão", Toast.LENGTH_SHORT).show();
                     Nota nota = notas.get(position);
-					notas.remove(position);
 					Intent intent = new Intent(getApplicationContext(), NovaNota.class);
-					intent.putExtra("nota", nota);
-					startActivity(intent);
-					mAdapter.notifyItemRemoved(position);
+                    intent.putExtra("nota", nota);
+                    startActivity(intent);
+                    mAdapter.notifyItemRemoved(position);
                 }
                 mAdapter.notifyDataSetChanged();
             }
@@ -73,8 +90,8 @@ public class TesteRecicleView extends AppCompatActivity {
 
         mRecyclerView.addOnItemTouchListener(swipeTouchListener);
 
-		imgBtnNovaNota = (ImageButton) findViewById(R.id.adicionaNota);
-		imgBtnNovaNota.setOnClickListener(new View.OnClickListener() {
+		fabNovaNota = (FloatingActionButton) findViewById(R.id.adicionaNota);
+        fabNovaNota.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
 					Intent intent = new Intent(getApplicationContext(), NovaNota.class);
