@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#ff4081</color>
     <color name="red">#fe0202</color>
     <color name="blue">#020afe</color>
     <color name="yellow">#fed802</color>
@@ -20,7 +20,7 @@
     <color name="btn_primary">#0275d8</color>
     <color name="btn_success">#5cb85c</color>
     <color name="btn_info">#5bc0de</color>
-    <color name="btn_warning">#f0ad4e</color>
+    <color name="btn_warning">#fbea8b</color>
     <color name="btn_danger">#d9534f</color>
 
     <!-- View Specific -->
@@ -29,5 +29,5 @@
     <color name="btn_secondary_fill">#ffffff</color>
     <color name="btn_secondary_border">#cccccc</color>
     <color name="btn_secondary_text">#373a3c</color>
-    
+
 </resources>

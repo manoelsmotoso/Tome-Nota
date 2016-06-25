@@ -4,9 +4,9 @@ package br.com.manoelmotoso.tomenota.model;
 import java.io.Serializable;
 
 /**
- * Created by manoel on 16/06/2016.
+ * Created by Manoel Silva Motoso on 16/06/2016.
  */
-public class Nota implements Serializable{
+public class Nota implements Serializable {
     private int _id;
     private String titulo;
     private String descricao;

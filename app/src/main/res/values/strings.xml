@@ -3,4 +3,10 @@
     <string name="titulo">Minhas Anotações</string>
     <string name="tituloNovaNota">Nova Anotação</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="labelTitulo">Titulo:</string>
+    <string name="labelDescricao">Descrição:</string>
+    <string name="btnSalvar">Salvar</string>
+    <string name="btnCancelar">Cancelar</string>
+    <string name="drawer_aberto">Drawer Aberto</string>
+    <string name="drawer_fechado">Drawer fechado</string>
 </resources>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="labelTitulo">Titulo:</string>
+    <string name="drawer_aberto">Drawer Aberto</string>
+    <string name="drawer_fechado">Drawer fechado</string>
+</resources>
