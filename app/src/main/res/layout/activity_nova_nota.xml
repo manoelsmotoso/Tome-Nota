@@ -55,7 +55,7 @@
         android:layout_alignParentEnd="true"
         android:fontFamily="cursive"
         android:elevation="5dp"
-        android:background="@color/btn_success" />
+        style="@style/btn_primary" />
 
     <Button
         android:layout_width="wrap_content"
@@ -67,6 +67,6 @@
         android:fontFamily="cursive"
         android:elegantTextHeight="false"
         android:elevation="5dp"
-        android:background="@color/btn_warning" />
+        style="@style/btn_warning" />
 
 </RelativeLayout>
