@@ -164,7 +164,12 @@ public class NotasActivity extends AppCompatActivity implements NavigationView.O
         }
         return false;
     }
-
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.principal, menu);
+        return true;
+    }
 
     //Recarrega a RecycleView de notas.
     private void carregarLista() {
