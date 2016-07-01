@@ -43,6 +43,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return mNotas.get(position).get_id();
     }
 
+    public void restaurarItem(Nota nota, int position){
+        this.mNotas.add(position,nota);
+    }
+
     // Criando nova view (invocada pelo layout manager
     @Override
     public RecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

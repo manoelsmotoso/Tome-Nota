@@ -36,7 +36,7 @@ public class NotasActivity extends AppCompatActivity implements NavigationView.O
     private FloatingActionButton mFabDeletaNota;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
-
+    private boolean isRemocaoConfirmada;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,25 +74,26 @@ public class NotasActivity extends AppCompatActivity implements NavigationView.O
             @Override
             public void onDismissedBySwipeLeft(RecyclerView recyclerView, int[] reverseSortedPositions) {
                 for (final int position : reverseSortedPositions) {
-                    final NotaDAO dao = new NotaDAO(NotasActivity.this);
                     final Nota nota = mNotas.get(position);
-                    dao.deletarNota(nota);
                     mNotas.remove(position);
-                    Snackbar snackbar = Snackbar.make(recyclerView, "Anotação deletada", Snackbar.LENGTH_LONG).setAction("DESFAZER", new View.OnClickListener() {
+                    final NotaDAO dao = new NotaDAO(getApplicationContext());
+                    dao.deletarNota(nota);
+                    mAdapter.notifyItemRemoved(position);
+                    Snackbar snackbar = Snackbar.make(recyclerView, "Anotação deletada", Snackbar.LENGTH_LONG)
+                            .setAction("DESFAZER", new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             nota.set_id(0);
                             dao.gravarNota(nota);
-                            carregarLista();
-                            Snackbar.make(view, "Anotação restaurada!", Snackbar.LENGTH_SHORT).show();
+                            mAdapter.restaurarItem(nota,position);
+                            mAdapter.notifyItemInserted(position);
                         }
                     });
+
                     // Changing message text color
                     snackbar.setActionTextColor(Color.GREEN);
                     snackbar.show();
                     dao.close();
-
-                    mAdapter.notifyItemRemoved(position);
                 }
                 mAdapter.notifyDataSetChanged();
             }

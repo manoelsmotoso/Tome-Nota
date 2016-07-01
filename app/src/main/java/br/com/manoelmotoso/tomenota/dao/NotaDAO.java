@@ -77,6 +77,7 @@ public class NotaDAO {
             respOperacao = db.update("notas", values, "_id = ?", ids);
         } else {
             respOperacao = db.insert(TABLE_NOTAS, null, values);
+
         }
 
         return respOperacao != -1;
