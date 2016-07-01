@@ -3,6 +3,7 @@ package br.com.manoelmotoso.tomenota.controller;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
@@ -56,7 +57,8 @@ public class NovaNotaActivity extends AppCompatActivity {
                     boolean isGravada = dao.gravarNota(NovaNotaActivity.this.nota);
                     if (isGravada) {
                         //Redireciona para a tela que lista as anotações
-                        finish();
+                        ActivityCompat.finishAfterTransition(NovaNotaActivity.this);
+
                     } else {
                         Snackbar.make(v, "Erro inesperado ao tentar gravar.", Snackbar.LENGTH_LONG).show();
                     }
@@ -69,7 +71,8 @@ public class NovaNotaActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Redireciona para a tela que lista as anotações
-               finish();
+                ActivityCompat.finishAfterTransition(NovaNotaActivity.this);
+
             }
         });
 

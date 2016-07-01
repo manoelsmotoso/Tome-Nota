@@ -9,10 +9,12 @@ import android.os.PersistableBundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
@@ -41,10 +43,15 @@ public class NotasActivity extends AppCompatActivity implements NavigationView.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notas);
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         mFabDeletaNota = (FloatingActionButton) findViewById(R.id.deletaNota);
-
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        mRecyclerView.setHasFixedSize(true);
+        RecyclerView.LayoutManager mLayoutManager;
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            mLayoutManager = new LinearLayoutManager(this);
+        }else{
+            mLayoutManager = new GridLayoutManager(this,2);
+        }
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         setupDrawer();
@@ -125,7 +132,8 @@ public class NotasActivity extends AppCompatActivity implements NavigationView.O
             public void onClick(View v) {
                 NotaDAO dao = new NotaDAO(getApplicationContext());
                 dao.deletarNotas(mAdapter.getIdsSelecionados());
-                carregarLista(mNotas);
+                carregarLista(dao.getNotas());
+                dao.close();
             }
         });
     }
