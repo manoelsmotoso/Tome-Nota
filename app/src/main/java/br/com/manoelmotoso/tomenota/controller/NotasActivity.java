@@ -164,7 +164,7 @@ public class NotasActivity extends AppCompatActivity implements NavigationView.O
          if (id == R.id.nav_share) {
             Intent intent = new Intent(Intent.ACTION_SEND);
             intent.setType("text/plain");
-            intent.putExtra(Intent.EXTRA_SUBJECT,"Manoel Silvs Motoso");
+            intent.putExtra(Intent.EXTRA_SUBJECT,"Manoel Silvsa Motoso");
             intent.putExtra(Intent.EXTRA_TEXT,"https://github.com/manoelsmotoso/Tome-Nota");
             startActivity(Intent.createChooser(intent,"Codigo do APP no GitHub"));
         }
@@ -178,35 +178,6 @@ public class NotasActivity extends AppCompatActivity implements NavigationView.O
         return true;
     }
 
-    //Context menu
-
-	/*
-     @Override
-	 public void onCreateContextMenu(ContextMenu menu, View v,
-	 ContextMenuInfo menuInfo) {
-	 super.onCreateContextMenu(menu, v, menuInfo);
-	 MenuInflater inflater = getMenuInflater();
-	 inflater.inflate(R.menu.context_menu, menu);
-
-	 }
-
-	 @Override
-	 public boolean onContextItemSelected(MenuItem item) {
-	 switch (item.getItemId()) {
-	 case R.id.option_delete:
-
-	 return true;
-	 case R.id.option_enviar:
-
-	 return true;
-	 case R.id.option_abrir:
-
-	 return true;
-	 default:
-	 return super.onContextItemSelected(item);
-	 }
-	 }
-	 */
 
 
     //Recarrega a RecycleView de mNotas.
@@ -219,6 +190,11 @@ public class NotasActivity extends AppCompatActivity implements NavigationView.O
         mRecyclerView.setAdapter(mAdapter);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        carregarLista();
+    }
 
     @Override
     public void onBackPressed() {

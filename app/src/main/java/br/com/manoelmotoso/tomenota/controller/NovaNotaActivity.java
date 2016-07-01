@@ -56,8 +56,7 @@ public class NovaNotaActivity extends AppCompatActivity {
                     boolean isGravada = dao.gravarNota(NovaNotaActivity.this.nota);
                     if (isGravada) {
                         //Redireciona para a tela que lista as anotações
-                        Intent intent = new Intent(NovaNotaActivity.this, NotasActivity.class);
-                        startActivity(intent);
+                        finish();
                     } else {
                         Snackbar.make(v, "Erro inesperado ao tentar gravar.", Snackbar.LENGTH_LONG).show();
                     }
@@ -70,8 +69,7 @@ public class NovaNotaActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Redireciona para a tela que lista as anotações
-                Intent intent = new Intent(NovaNotaActivity.this, NotasActivity.class);
-                startActivity(intent);
+               finish();
             }
         });
 
