@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -33,8 +34,8 @@ public class NotaDAO {
      *
      * @return ArrayList<Nota>
      */
-    public List<Nota> getNotas() {
-        List<Nota> notas = new ArrayList<>();
+    public ArrayList<Nota> getNotas() {
+        ArrayList<Nota> notas = new ArrayList<>();
         SQLiteDatabase db = helper.getReadableDatabase();
         String[] colunas = {"_id", "titulo", "descricao", "dataDeAlteracao"};
         String orderBy = "dataDeAlteracao DESC";
@@ -65,15 +66,18 @@ public class NotaDAO {
         Date date = new Date();
         //Foramtando a data
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy  HH:mm");
-
+        String data = String.valueOf(simpleDateFormat.format(date));
         ContentValues values = new ContentValues();
         values.put("titulo", nota.getTitulo());
         values.put("descricao", nota.getDescricao());
-        values.put("dataDeAlteracao", String.valueOf(simpleDateFormat.format(date)));
+
+        if(nota.getDataDeAlteracao()==null | nota.getDataDeAlteracao()=="") {values.put("dataDeAlteracao", data);
+        }else{values.put("dataDeAlteracao", nota.getDataDeAlteracao());}
 
         long respOperacao;
         if (nota.get_id() != 0) {
             String[] ids = {String.valueOf(nota.get_id())};
+            values.put("dataDeAlteracao", data);
             respOperacao = db.update("notas", values, "_id = ?", ids);
         } else {
             respOperacao = db.insert(TABLE_NOTAS, null, values);

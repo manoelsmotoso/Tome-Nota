@@ -12,6 +12,7 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import br.com.manoelmotoso.tomenota.R;
@@ -23,15 +24,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private CheckBox mTitulo;
     private TextView mData;
     private CardView mCardView;
-    private List<Nota> mNotas;
+    private ArrayList<Nota> mNotas;
     private Activity mAct;
     private List<String> ids;
 
-    public RecyclerViewAdapter(List<Nota> notas, Activity act) {
+    public RecyclerViewAdapter(ArrayList<Nota> notas, Activity act) {
         this.mNotas = notas;
         this.mAct = act;
-    }
 
+    }
+    public Nota getItem(int position) {
+        return mNotas.get(position);
+    }
     // Retorna a quantidade de items na lista
     @Override
     public int getItemCount() {
@@ -44,7 +48,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     public void restaurarItem(Nota nota, int position){
-        this.mNotas.add(position,nota);
+        this.mNotas.set(position,nota);
     }
 
     // Criando nova view (invocada pelo layout manager
@@ -102,6 +106,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public List<String> getIdsSelecionados() {
         return this.ids;
     }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public ViewHolder(View v) {

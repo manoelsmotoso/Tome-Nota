@@ -18,11 +18,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.github.brnunes.swipeablerecyclerview.SwipeableRecyclerViewTouchListener;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import br.com.manoelmotoso.tomenota.R;
 import br.com.manoelmotoso.tomenota.adapters.RecyclerViewAdapter;
@@ -32,11 +31,10 @@ import br.com.manoelmotoso.tomenota.model.Nota;
 public class NotasActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private RecyclerView mRecyclerView;
     private RecyclerViewAdapter mAdapter;
-    private List<Nota> mNotas;
+    private ArrayList<Nota> mNotas;
     private FloatingActionButton mFabDeletaNota;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
-    private boolean isRemocaoConfirmada;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +51,10 @@ public class NotasActivity extends AppCompatActivity implements NavigationView.O
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        carregarLista();
+        NotaDAO dao = new NotaDAO(this);
+        this.mNotas = dao.getNotas();
+        dao.close();
+        carregarLista(mNotas);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -74,19 +75,19 @@ public class NotasActivity extends AppCompatActivity implements NavigationView.O
             @Override
             public void onDismissedBySwipeLeft(RecyclerView recyclerView, int[] reverseSortedPositions) {
                 for (final int position : reverseSortedPositions) {
-                    final Nota nota = mNotas.get(position);
-                    mNotas.remove(position);
                     final NotaDAO dao = new NotaDAO(getApplicationContext());
-                    dao.deletarNota(nota);
+                    final Nota notaRemovida = mNotas.remove(position);
                     mAdapter.notifyItemRemoved(position);
+                    dao.deletarNota(notaRemovida);
+                    carregarLista(dao.getNotas());
                     Snackbar snackbar = Snackbar.make(recyclerView, "Anotação deletada", Snackbar.LENGTH_LONG)
                             .setAction("DESFAZER", new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            nota.set_id(0);
-                            dao.gravarNota(nota);
-                            mAdapter.restaurarItem(nota,position);
-                            mAdapter.notifyItemInserted(position);
+                            notaRemovida.set_id(0);
+                            dao.gravarNota(notaRemovida);
+                            carregarLista(dao.getNotas());
+
                         }
                     });
 
@@ -124,7 +125,7 @@ public class NotasActivity extends AppCompatActivity implements NavigationView.O
             public void onClick(View v) {
                 NotaDAO dao = new NotaDAO(getApplicationContext());
                 dao.deletarNotas(mAdapter.getIdsSelecionados());
-                carregarLista();
+                carregarLista(mNotas);
             }
         });
     }
@@ -182,11 +183,9 @@ public class NotasActivity extends AppCompatActivity implements NavigationView.O
 
 
     //Recarrega a RecycleView de mNotas.
-    private void carregarLista() {
-        NotaDAO dao = new NotaDAO(this);
-        mNotas = dao.getNotas();
-        dao.close();
-        mAdapter = new RecyclerViewAdapter(mNotas, this);
+    private void carregarLista(ArrayList<Nota> mNotas) {
+        this.mNotas = mNotas;
+        mAdapter = new RecyclerViewAdapter(this.mNotas, this);
         mFabDeletaNota.setVisibility(View.GONE);
         mRecyclerView.setAdapter(mAdapter);
     }
@@ -194,7 +193,7 @@ public class NotasActivity extends AppCompatActivity implements NavigationView.O
     @Override
     protected void onResume() {
         super.onResume();
-        carregarLista();
+        carregarLista(new NotaDAO(this).getNotas());
     }
 
     @Override
